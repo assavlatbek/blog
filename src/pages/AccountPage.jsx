@@ -4,14 +4,19 @@ import Cookies from "js-cookie";
 import request from "../server/index";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function AccountPage() {
   const { setIsAuthenticated } = useContext(AuthContext);
   const [data, setData] = useState({});
   const [changedData, setChangedData] = useState({});
+
+  const navigate = useNavigate();
+
   const logout = () => {
     setIsAuthenticated(false);
     Cookies.remove(TOKEN);
+    navigate("/login");
   };
 
   const headers = {

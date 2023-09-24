@@ -17,6 +17,20 @@
   color: #ffd050;
 }
 
+.section-title {
+  font-family: Sen;
+  margin: 40px 0;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: -2px;
+}
+
+.my-2 {
+  margin: 10px 0;
+}
+
 /* Layout */
 
 .content {
@@ -162,9 +176,8 @@ footer p {
 .hero {
   background: #00000076;
   padding-top: 80px;
-  padding-bottom: 80px;
-  margin-left: 0;
-  padding-right: 0;
+  padding-bottom: 80px !important;
+  margin: 0 !important;
   display: flex;
   align-items: center;
 }
@@ -299,6 +312,33 @@ footer p {
   font-style: normal;
   font-weight: 700;
   line-height: 32px;
+}
+
+/* Popular Posts */
+
+.react-multi-carousel-item {
+  padding: 0 20px;
+}
+
+.post-title {
+  color: #232536;
+  font-family: Sen;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+  margin: 10px 0;
+  letter-spacing: -1px;
+}
+
+.post-descr {
+  color: #232536;
+  margin: 10px 0;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
 }
 
 @media (max-width: 1000px) {

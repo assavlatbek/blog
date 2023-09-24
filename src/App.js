@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import Layout from './layout/frontLayout'
 import HomePage from './pages/HomePage'
 import CategoryPage from './pages/CategoryPage'

@@ -50,6 +50,7 @@ function AboutPage() {
           </div>
           <div className="col-2">
             <LazyLoadImage
+              effect="blur"
               style={{ width: "100%" }}
               src="https://images.pexels.com/photos/461049/pexels-photo-461049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
@@ -58,6 +59,7 @@ function AboutPage() {
         <div className="about-header">
           <div className="col-1">
             <LazyLoadImage
+              effect="blur"
               style={{ width: "100%" }}
               src="https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />

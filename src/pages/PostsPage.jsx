@@ -1,79 +1,131 @@
 import { useEffect, useState } from "react";
 import request from "../server";
 import { toast } from "react-toastify";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import PostCard from "../components/PostCard";
 
 function PostsPage() {
   const [posts, setPosts] = useState([]);
-  const [errorImages, setErrorImages] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [totalPost, setTotalPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const handleImageError = (postId) => {
-    setErrorImages((prevErrors) => ({
-      ...prevErrors,
-      [postId]: true,
-    }));
-  };
-  const redirectToBlog = (id) => {
-    window.location.href = "blog/" + id;
-  };
+  const itemsPerPage = 10; // Number of items to display per page
 
-  async function getPosts() {
+  async function getPosts(page) {
     try {
-      const res = await request.get(`post`);
+      setLoading(true);
+      const res = await request.get(`post?page=${page}&limit=${itemsPerPage}`);
       setPosts(res.data.data);
+      setTotalPage(res.data.pagination.total);
     } catch (error) {
       toast.error("Server error");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const maxPage = Math.ceil(totalPost / itemsPerPage);
+
+  const nextPageFunc = () => {
+    if (currentPage < maxPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPageFunc = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const setPage = (page) => {
+    if (page >= 1 && page <= maxPage) {
+      setCurrentPage(page);
+    }
+  };
+
+  async function handleSearch(e) {
+    try {
+      setLoading(true);
+      const res = await request.get(`post?search=${e.target.value}`);
+      setPosts(res.data.data);
+      setTotalPage(res.data.pagination.total);
+    } catch (error) {
+      toast.error("Not Found bro");
+    } finally {
+      setLoading(false);
     }
   }
 
   useEffect(() => {
-    getPosts();
-  }, []);
+    getPosts(currentPage);
+  }, [currentPage]);
 
   return (
     <section>
       <div className="container">
         <br />
         <br />
-        <input type="search" placeholder="Search" className="post-search" />
-        <h1 className="section-title">All posts</h1>
+        <input
+          type="search"
+          onChange={handleSearch}
+          placeholder="Search"
+          className="post-search"
+        />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <h1 className="section-title">All posts ({totalPost})</h1>
+        </div>
         <hr />
-        <br />
-        {posts.map((post) => (
-          <div className="post" key={post._id}>
-            <div className="post-header">
-              <LazyLoadImage
-                effect="blur"
-                onClick={() => redirectToBlog(post._id)}
-                style={{ objectFit: "cover", cursor: "pointer" }}
-                onError={() => handleImageError(post._id)}
-                src={
-                  errorImages[post._id]
-                    ? "https://savlatbek-coder.netlify.app/images/me.jpg"
-                    : `https://blog-backend-production-a0a8.up.railway.app/upload/${
-                        post.photo._id
-                      }.${post.photo.name.slice(-3)}`
+        {loading ? (
+          <h3 className="err-loading">Loading...</h3>
+        ) : posts.length ? (
+          posts.map((post) => <PostCard key={post._id} post={post} />)
+        ) : (
+          <h3 className="err-not-found">Not Found</h3>
+        )}
+        {posts.length ? (
+          <div className="pagination-buttons">
+            <button
+              className={
+                currentPage === 1
+                  ? "disabled pagination-button"
+                  : "pagination-button"
+              }
+              onClick={prevPageFunc}
+            >
+              {"<"}
+            </button>
+            {Array.from({ length: maxPage }, (_, index) => (
+              <button
+                key={index}
+                onClick={() => setPage(index + 1)}
+                className={
+                  currentPage === index + 1
+                    ? "pagination-button active-page"
+                    : "pagination-button"
                 }
-              />
-            </div>
-            <div className="post-body">
-              <p className="hero-category">
-                {post.category ? post.category.name : "Coding"}
-              </p>
-              <h1 className="post-title">
-                {post.category ? post.category.name : "Coding"},{" "}
-                {post.category !== null
-                  ? post.category.description.slice(0, 76)
-                  : "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit nulla adipisci corporis."}
-              </h1>
-              <p className="post-descr">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident.
-              </p>
-            </div>
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              className={
+                currentPage === maxPage
+                  ? "disabled pagination-button"
+                  : "pagination-button"
+              }
+              onClick={nextPageFunc}
+            >
+              {">"}
+            </button>
           </div>
-        ))}
+        ) : null}
       </div>
     </section>
   );

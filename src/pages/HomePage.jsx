@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
 import request from "../server";
 import { toast } from "react-toastify";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import Cookies from "js-cookie";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
-import { TOKEN } from "../constant/";
+import CategoryCard from "../components/CategoryCard";
+import { Link } from "react-router-dom";
+import HeroPostCard from "../components/HeroPostCard";
 
 function HomePage() {
   const [data, setData] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [category, setCategory] = useState([]);
   const [heroBg, setHeroBg] = useState("");
 
   async function getData() {
@@ -19,7 +19,9 @@ function HomePage() {
       const res = await request.get("post/lastone");
       setData([res.data]);
       setHeroBg(
-        `https://blog-backend-production-a0a8.up.railway.app/upload/${res.data.photo._id}.png`
+        `https://blog-backend-production-a0a8.up.railway.app/upload/${
+          res.data.photo._id
+        }.${res.data.photo.name.slice(-3)}`
       );
     } catch (error) {
       toast.error("Server Error");
@@ -27,14 +29,18 @@ function HomePage() {
   }
 
   async function getPosts() {
-    const headers = {
-      Cookie: `Cookie_1=value; TOKEN=${Cookies.get(TOKEN)}`,
-      "Cache-Control": `no-cache`,
-      "Postman-Token": `<calculated when request is sent>`,
-    };
     try {
-      const res = await request.get("post/lastones", { headers });
+      const res = await request.get("post/lastones");
       setPosts(res.data);
+    } catch (error) {
+      toast.error("Server Error");
+    }
+  }
+
+  async function getCategory() {
+    try {
+      const res = await request.get("category");
+      setCategory(res.data.data);
     } catch (error) {
       toast.error("Server Error");
     }
@@ -43,23 +49,24 @@ function HomePage() {
   useEffect(() => {
     getData();
     getPosts();
+    getCategory();
   }, []);
 
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 3,
-      partialVisibilityGutter: 0,
+      partialVisibilityGutter: 30,
     },
     tablet: {
       breakpoint: { max: 1024, min: 500 },
       items: 2,
-      partialVisibilityGutter: 0,
+      partialVisibilityGutter: 30,
     },
     mobile: {
       breakpoint: { max: 500, min: 0 },
       items: 1,
-      partialVisibilityGutter: 0,
+      partialVisibilityGutter: 30,
     },
   };
 
@@ -72,7 +79,7 @@ function HomePage() {
         <div className="hero">
           <div className="container">
             {data.map((el) => (
-              <>
+              <Fragment key={el._id}>
                 <p className="hero-category">
                   Posted on <b>{el.category.name}</b>
                 </p>
@@ -96,72 +103,53 @@ function HomePage() {
                 </p>
                 <p className="hero-descr">{el.category.description}</p>
 
-                <button className="btn btn-yellow">Read More {">"}</button>
-              </>
+                <Link to={"/blog/" + el._id} className="btn btn-yellow">
+                  Read More {">"}
+                </Link>
+              </Fragment>
             ))}
           </div>
         </div>
       </section>
-      <section className="popular-posts container">
+      <section className="container">
         <h1 className="section-title">Most Popular</h1>
         <Carousel
-          itemClass="container"
           responsive={responsive}
-          swipeable={false}
-          draggable={false}
           showDots={false}
-          ssr={false}
           infinite={true}
           autoPlay={false}
-          autoPlaySpeed={200}
+          autoPlaySpeed={100}
           keyBoardControl={true}
         >
           {posts.map((post) => (
-            <div className="popular-posts">
-              <LazyLoadImage
-                width={"100%"}
-                height={"318px"}
-                style={{ objectFit: "cover" }}
-                effect="blur"
-                src={
-                  post.photo
-                    ? `https://blog-backend-production-a0a8.up.railway.app/upload/${
-                        post.photo._id
-                      }.${post.photo.name.slice(-3)}`
-                    : "https://savlatbek-coder.netlify.app/images/me.jpg"
-                }
-              />
-              <p className="hero-detail my-2">
-                By{" "}
-                <span className="text-yellow">
-                  {post.user.first_name} {post.user.last_name}
-                </span>{" "}
-                |{" "}
-                {new Date(
-                  post.category
-                    ? post.category.updatedAt
-                    : "2009-07-11T00:00:00.000Z"
-                ).toLocaleDateString(undefined, {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
-              <h1 className="post-title">
-                {post.category ? post.category.name : "Coding"},{" "}
-                {post.category
-                  ? post.category.description.slice(0, 36)
-                  : "Lorem ipsum dolor sit amet consectetur ad"}
-              </h1>
-              <p className="post-descr">
-                {post.category
-                  ? post.category.description
-                  : "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."}
-              </p>
-            </div>
+            <HeroPostCard key={post._id} post={post} />
           ))}
         </Carousel>
       </section>
+      <br />
+      <br />
+      <div className="container">
+        <hr />
+      </div>
+      <section className="category-sec container">
+        <center>
+          <h1 className="section-title">Choose A Catagory</h1>
+        </center>
+        <Carousel
+          responsive={responsive}
+          showDots={false}
+          infinite={true}
+          autoPlay={false}
+          autoPlaySpeed={100}
+          keyBoardControl={true}
+        >
+          {category.map((el) => (
+            <CategoryCard key={el._id} el={el} />
+          ))}
+        </Carousel>
+      </section>
+      <br />
+      <br />
     </>
   );
 }

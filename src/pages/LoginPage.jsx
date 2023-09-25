@@ -20,13 +20,12 @@ function LoginPage() {
     };
     try {
       const res = await request.post("auth/login", user);
-      console.log(res.status);
       Cookies.set(TOKEN, res.data.token);
       setIsAuthenticated(true);
 
       navigate("/my-blogs");
     } catch (error) {
-      toast.error("User name or password is incorrect");
+      toast.error("User name or password is incorrect bro :)");
     }
   };
   return (

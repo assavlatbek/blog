@@ -22,12 +22,10 @@ function Header() {
         <div className="navigation">
           <div className="navs">
             <NavLink to={"/"}>Home</NavLink>
-            <NavLink to={"/blogs"}>Blog</NavLink>
+            <NavLink to={"/posts"}>Posts</NavLink>
             <NavLink to={"/about"}>About Us</NavLink>
-
             <NavLink to={"/register"}>Register</NavLink>
           </div>
-
           <div className="action">
             {isAuthenticated ? (
               <NavLink className="btn-white" to={"/account"}>

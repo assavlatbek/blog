@@ -37,6 +37,9 @@ function Header() {
             <NavLink onClick={() => setMenuOpen(false)} to={"/about"}>
               About Us
             </NavLink>
+            <NavLink onClick={() => setMenuOpen(false)} to={"/register"}>
+              Register
+            </NavLink>
           </div>
           <div className="action">
             {isAuthenticated ? (

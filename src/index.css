@@ -116,13 +116,13 @@ header nav {
 
 header .logo h1 {
   transition: 0.5s all;
+  animation: color 3s ease infinite;
   cursor: pointer;
   letter-spacing: 1.1px;
 }
 
 .logo a {
   text-decoration: none;
-  color: #fff;
 }
 
 header .logo h1:hover {
@@ -146,6 +146,7 @@ header .navs {
   border: 1px solid transparent;
   text-decoration: none;
   color: #fff;
+  animation: color 3s ease infinite !important;
   font-size: 16px;
   font-weight: 400;
   padding: 6px 20px;
@@ -202,6 +203,7 @@ footer p {
 .hero-section {
   width: 100%;
   color: #fff;
+  background-position: 70% !important;
   background-size: cover !important;
 }
 
@@ -366,6 +368,12 @@ footer p {
   font-style: normal;
   font-weight: 400;
   line-height: 28px;
+}
+
+/* Register */
+
+.register {
+  padding-bottom: 40px;
 }
 
 /* Category */
@@ -545,6 +553,8 @@ footer p {
   margin: 40px auto;
 }
 
+/* Media */
+
 @media (max-width: 1000px) {
   .hero {
     padding: 50px 0 0 0;
@@ -615,7 +625,7 @@ footer p {
     right: 0;
     left: 0;
     padding: 200px 0;
-    background: #d1ff03;
+    background: #181818;
     display: flex !important;
     flex-direction: column;
     align-items: center;
@@ -642,5 +652,25 @@ footer p {
   }
   .pagination-buttons {
     gap: 5px;
+  }
+}
+
+/* Keyframes */
+
+@keyframes color {
+  0% {
+    color: #ffffff;
+  }
+  25% {
+    color: #86ff0e;
+  }
+  50% {
+    color: #ffee00;
+  }
+  75% {
+    color: #006eff;
+  }
+  100% {
+    color: #ffffff;
   }
 }

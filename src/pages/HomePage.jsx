@@ -18,11 +18,7 @@ function HomePage() {
     try {
       const res = await request.get("post/lastone");
       setData([res.data]);
-      setHeroBg(
-        `https://blog-backend-production-a0a8.up.railway.app/upload/${
-          res.data.photo._id
-        }.${res.data.photo.name.slice(-3)}`
-      );
+      setHeroBg(`https://savlatbek-coder.netlify.app/images/me.jpg`);
     } catch (error) {
       toast.error("Server Error");
     }

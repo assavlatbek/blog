@@ -25,7 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path='category/:category' element={<CategoryPage />} />
+            <Route path='category/:id' element={<CategoryPage />} />
             <Route path='posts' element={<PostsPage />} />
             <Route path='about' element={<AboutPage />} />
             <Route path='register' element={<RegisterPage />} />

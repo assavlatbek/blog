@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useNavigate } from "react-router-dom";
 
 function PostCard({ post }) {
   const [errorImages, setErrorImages] = useState({});
+
+  const navigate = useNavigate();
 
   const handleImageError = (postId) => {
     setErrorImages((prevErrors) => ({
@@ -11,15 +14,19 @@ function PostCard({ post }) {
     }));
   };
   const redirectToBlog = (id) => {
-    window.location.href = "/blog/" + id;
+    navigate("/blog/" + id);
   };
 
   return (
-    <div className="post" key={post._id}>
+    <div
+      className="post"
+      onClick={() => redirectToBlog(post._id)}
+      key={post._id}
+      style={{ cursor: "pointer" }}
+    >
       <div className="post-header">
         <LazyLoadImage
           effect="blur"
-          onClick={() => redirectToBlog(post._id)}
           style={{
             objectFit: "cover",
             objectPosition: "center",

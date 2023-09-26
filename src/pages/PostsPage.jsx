@@ -99,7 +99,7 @@ function PostsPage() {
               }
               onClick={prevPageFunc}
             >
-              {"<"}
+              {"< Prev"}
             </button>
             {Array.from({ length: maxPage }, (_, index) => (
               <button
@@ -122,7 +122,7 @@ function PostsPage() {
               }
               onClick={nextPageFunc}
             >
-              {">"}
+              {"> Next"}
             </button>
           </div>
         ) : null}

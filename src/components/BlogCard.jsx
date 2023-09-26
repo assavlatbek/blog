@@ -1,6 +1,16 @@
+import { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function BlogCard({ el }) {
+  const [errorImages, setErrorImages] = useState({});
+
+  const handleImageError = (postId) => {
+    setErrorImages((prevErrors) => ({
+      ...prevErrors,
+      [postId]: true,
+    }));
+  };
+
   return (
     <div className="blog">
       <LazyLoadImage
@@ -8,12 +18,13 @@ function BlogCard({ el }) {
         height={"582px"}
         style={{ objectFit: "cover", objectPosition: "top" }}
         effect="blur"
+        onError={() => handleImageError(el._id)}
         src={
-          el.photo
-            ? `https://blog-backend-production-a0a8.up.railway.app/upload/${
+          errorImages[el._id]
+            ? "https://savlatbek-coder.netlify.app/images/me.jpg"
+            : `https://blog-backend-production-a0a8.up.railway.app/upload/${
                 el.photo._id
-              }.${el.photo.name.slice(-3)}`
-            : "https://savlatbek-coder.netlify.app/images/me.jpg"
+              }.${el.photo.name.split(".")[1]}`
         }
       />
       <br />
@@ -23,10 +34,13 @@ function BlogCard({ el }) {
             width={"50px"}
             height={"50px"}
             style={{ borderRadius: "50%" }}
+            onError={() => handleImageError(el._id)}
             src={
-              el.user
-                ? `https://blog-backend-production-a0a8.up.railway.app/upload/${el.user.photo}`
-                : "https://savlatbek-coder.netlify.app/images/me.jpg"
+              errorImages[el._id]
+                ? "https://savlatbek-coder.netlify.app/images/me.jpg"
+                : `https://blog-backend-production-a0a8.up.railway.app/upload/${
+                    el.photo._id
+                  }.${el.photo.name.split(".")[1]}`
             }
             effect="blur"
           />

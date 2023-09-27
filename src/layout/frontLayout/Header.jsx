@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -10,6 +10,15 @@ function Header() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  useEffect(() => {
+    document.body.classList.add("hiddin");
+    if (menuOpen) {
+      document.body.classList.add("hiddin");
+    } else {
+      document.body.classList.remove("hiddin");
+    }
+  }, [menuOpen]);
 
   return (
     <header>

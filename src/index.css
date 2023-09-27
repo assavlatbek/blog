@@ -8,9 +8,9 @@
 }
 
 body::-webkit-scrollbar {
+  transition: 0.5s all;
   -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
+  width: 0;
   top: 0;
   right: 0;
 }
@@ -51,6 +51,10 @@ body::-webkit-scrollbar-track {
 .non-link {
   text-decoration: none;
   color: #232536;
+}
+
+.hiddin {
+  overflow-y: hidden;
 }
 
 /* Back to top */
@@ -772,11 +776,12 @@ footer p {
   }
 
   .navigation.open {
+    overflow: hidden !important;
     transition: width 1s;
     animation: openModal 0.6s forwards;
     opacity: 1;
     position: fixed;
-    z-index: 9999;
+    z-index: 99999;
     width: 100% !important;
     height: 100vh;
     top: 0;
@@ -792,7 +797,8 @@ footer p {
     animation: hideModal 0.6s forwards;
     opacity: 1;
     position: fixed;
-    z-index: 9999;
+    overflow: hidden !important;
+    z-index: 99999;
     width: 100% !important;
     height: 100vh;
     top: 0;

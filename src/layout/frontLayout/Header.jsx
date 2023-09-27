@@ -1,9 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Link, NavLink, Route } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import MyBlogsPage from "../../pages/MyBlogsPage";
-import NotFoundPage from "../../pages/NotFoundPage";
 
 function Header() {
   const { isAuthenticated } = useContext(AuthContext);

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import Layout from './layout/frontLayout'
@@ -14,10 +14,21 @@ import { ToastContainer } from 'react-toastify'
 import MyBlogsPage from './pages/MyBlogsPage'
 import BlogPage from './pages/BlogPage'
 import PostsPage from './pages/PostsPage'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 
 function App() {
   const { isAuthenticated } = useContext(AuthContext)
+
+
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
 
   return (
     <>
@@ -49,6 +60,14 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+
+      <button
+        className="back-to-top"
+        onClick={scrollToTop}
+      >
+        <LazyLoadImage effect='blur' src='https://cdn4.iconfinder.com/data/icons/arrow-part-1-64-px/64/Artboard_2-512.png' width={"30px"} height={'30px'} />
+      </button>
+
       <ToastContainer />
     </>
   )

@@ -53,6 +53,29 @@ body::-webkit-scrollbar-track {
   color: #232536;
 }
 
+/* Back to top */
+
+.back-to-top {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+  right: 20px;
+  background: #232536;
+  box-shadow: rgba(255, 255, 255, 0.3) 0px 1px 2px 0px,
+    rgba(255, 255, 255, 0.15) 0px 2px 6px 2px;
+  bottom: 20px;
+  border: none;
+  padding: 10px;
+  z-index: 9999;
+}
+
+.back-to-top img {
+  filter: invert(100%);
+}
+
 /* Layout */
 
 .content {

@@ -12,7 +12,7 @@ const CategoryCard = ({ el }) => {
     }));
   };
   return (
-    <Link to={`/category/${el._id}?name=${el.name}`}>
+    <Link className="non-link" to={`/category/${el._id}?name=${el.name}`}>
       <div className="category">
         <LazyLoadImage
           width={"100%"}

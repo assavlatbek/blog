@@ -23,7 +23,7 @@ function LoginPage() {
       Cookies.set(TOKEN, res.data.token);
       setIsAuthenticated(true);
 
-      navigate("/my-blogs");
+      navigate("/my-posts");
     } catch (error) {
       toast.error("User name or password is incorrect bro :)");
     }

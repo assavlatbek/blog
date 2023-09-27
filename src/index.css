@@ -26,7 +26,7 @@ body::-webkit-scrollbar-track {
 .container {
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 20px;
 }
 
 .text-yellow {
@@ -48,8 +48,9 @@ body::-webkit-scrollbar-track {
   margin-bottom: 10px;
 }
 
-a {
+.non-link {
   text-decoration: none;
+  color: #232536;
 }
 
 /* Layout */
@@ -94,6 +95,26 @@ a {
   background: #fff;
   color: #232536;
   border: 1px solid #ffd050;
+}
+
+.btn-red {
+  transition: 0.5s all;
+  font-family: Sen;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+  border: none;
+  background: #f51809;
+  border: 1px solid #f51809;
+  color: #ffffff;
+  padding: 16px 48px;
+}
+
+.btn-red:hover {
+  letter-spacing: 1.2px;
+  background: #fff;
+  color: #232536;
+  border: 1px solid #f51809;
 }
 
 /* Header */
@@ -167,7 +188,14 @@ header .navs {
 }
 
 .menu {
+  transition: 0.3s all;
   display: none;
+}
+
+.open {
+  transition: 0.6s all;
+  opacity: 0;
+  width: 0 !important;
 }
 
 .menu-toggle {
@@ -182,6 +210,7 @@ header .navs {
 footer {
   background: #232536;
   color: #fff;
+  margin-top: 10px;
   padding: 40px;
 }
 
@@ -435,6 +464,10 @@ footer p {
   margin: 20px 0;
 }
 
+.post-body {
+  padding: 10px 0;
+}
+
 .post .hero-category {
   color: #592ea9;
 }
@@ -488,6 +521,13 @@ footer p {
   border-radius: 5px;
 }
 
+.pagination-button:hover {
+  transition: 0.5s all;
+  background: #232536;
+  color: #fff;
+  cursor: pointer;
+}
+
 .active-page {
   transition: 0.5s all;
   background: #232536;
@@ -498,6 +538,12 @@ footer p {
   transition: 0.5s all;
   cursor: not-allowed;
   opacity: 0.4;
+}
+
+.disabled:hover {
+  cursor: not-allowed;
+  background: #fff !important;
+  color: #232536;
 }
 
 /* category */
@@ -553,6 +599,82 @@ footer p {
   margin: 40px auto;
 }
 
+/* My Posts */
+
+.my-posts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Modal */
+
+.modal {
+  transition: 1s all;
+  position: fixed;
+  top: -1000px;
+  left: 0;
+  z-index: 99999;
+  height: 100vh;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffd050bd;
+}
+
+.showModal {
+  transition: 1s all;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  left: 0;
+  right: 0;
+  background: #ffd050bd;
+  backdrop-filter: blur(5px);
+}
+
+.modal-body {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.modal-action {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.modal-input {
+  display: block;
+  padding: 15px 20px;
+  border: 1px solid #ddd;
+  outline: none;
+  margin: 10px 0;
+  width: 100%;
+  font-size: 15px;
+}
+
+.modal-btn-success {
+  background: #0eff2a;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  font-size: 18px;
+}
+
+.modal-btn-danger {
+  background: #ff1a0e;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  font-size: 18px;
+}
+
 /* Media */
 
 @media (max-width: 1000px) {
@@ -597,12 +719,22 @@ footer p {
 }
 
 @media (max-width: 800px) {
+  header {
+    transition: 0.3s all;
+    padding: 10px 0 !important;
+  }
+  header * {
+    transition: 0.3s all !important;
+  }
+
   .menu {
+    transition: 0.5s all;
     display: block;
     z-index: 99999;
   }
 
   .menu img {
+    transition: 0.5s all;
     filter: invert(100%);
   }
 
@@ -615,22 +747,40 @@ footer p {
     flex-direction: column;
     text-align: center;
   }
+
   .navigation.open {
+    transition: width 1s;
+    animation: openModal 0.6s forwards;
+    opacity: 1;
     position: fixed;
     z-index: 9999;
-    width: 100%;
+    width: 100% !important;
     height: 100vh;
     top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    right: -100%;
     padding: 200px 0;
     background: #181818;
     display: flex !important;
     flex-direction: column;
     align-items: center;
   }
-
+  .hide {
+    transition: width 1s;
+    animation: hideModal 0.6s forwards;
+    opacity: 1;
+    position: fixed;
+    z-index: 9999;
+    width: 100% !important;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    padding: 0;
+    padding: 200px 0;
+    background: #181818;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
   .open a {
     margin: 10px 0;
   }
@@ -672,5 +822,22 @@ footer p {
   }
   100% {
     color: #ffffff;
+  }
+}
+
+@keyframes openModal {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 0;
+  }
+}
+@keyframes hideModal {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: -100%;
   }
 }

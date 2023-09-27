@@ -37,7 +37,7 @@ function RegisterPage() {
         Cookies.set(TOKEN, res.data.token);
         toast.success("Alls are ok. You are redricting");
         setIsAuthenticated(true);
-        navigate("/my-blogs");
+        navigate("/my-posts");
       } catch (error) {
         toast.error("Username or password is incorrect");
       }

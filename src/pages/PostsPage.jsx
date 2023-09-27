@@ -122,7 +122,7 @@ function PostsPage() {
               }
               onClick={nextPageFunc}
             >
-              {"> Next"}
+              {"Next >"}
             </button>
           </div>
         ) : null}

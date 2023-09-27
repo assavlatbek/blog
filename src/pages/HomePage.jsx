@@ -77,10 +77,12 @@ function HomePage() {
             {data.map((el) => (
               <Fragment key={el._id}>
                 <p className="hero-category">
-                  Posted on <b>{el.category.name}</b>
+                  Posted on <b>{el.category ? el.category.name : "CODING"}</b>
                 </p>
                 <h1 className="hero-title">
-                  {el.category.name}, {el.category.description.slice(0, 36)}.
+                  {el.category
+                    ? el.category.name + el.category.description.slice(0, 36)
+                    : "Coding, Lorem ipsun dollot sit, if you wont get up nd wake!"}
                 </h1>
                 <p className="hero-detail">
                   By{" "}
@@ -88,17 +90,21 @@ function HomePage() {
                     {el.user.first_name} {el.user.last_name}
                   </span>{" "}
                   |{" "}
-                  {new Date(el.category.updatedAt).toLocaleDateString(
-                    undefined,
-                    {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }
-                  )}
+                  {new Date(
+                    el.category
+                      ? el.category.updatedAt
+                      : "2009-07-11T00:00:00.000Z"
+                  ).toLocaleDateString(undefined, {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
                 </p>
-                <p className="hero-descr">{el.category.description}</p>
-
+                <p className="hero-descr">
+                  {el.category
+                    ? el.category.description
+                    : "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."}
+                </p>
                 <Link to={"/blog/" + el._id} className="btn btn-yellow">
                   Read More {">"}
                 </Link>

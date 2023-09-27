@@ -46,7 +46,9 @@ function BlogCard({ el }) {
           />
           <div>
             <h3 className="author-name">
-              {el.user.first_name} {el.user.last_name}
+              {el.user
+                ? el.user.first_name + " " + el.user.last_name
+                : "Abdullayev Savlatbek"}
             </h3>
             <p>
               Posted on{" "}

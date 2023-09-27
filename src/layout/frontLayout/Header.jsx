@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Route } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import MyBlogsPage from "../../pages/MyBlogsPage";
+import NotFoundPage from "../../pages/NotFoundPage";
 
 function Header() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -16,7 +18,7 @@ function Header() {
       <nav className="container">
         <div className="logo">
           {isAuthenticated ? (
-            <Link to={"/my-blogs"}>
+            <Link to={"/my-posts"}>
               <h1>My Blogs</h1>
             </Link>
           ) : (
@@ -26,11 +28,16 @@ function Header() {
           )}
         </div>
 
-        <div className={`navigation ${menuOpen ? "open" : ""}`}>
+        <div className={`navigation ${menuOpen ? "open" : "hide"}`}>
           <div className="navs">
             <NavLink onClick={() => setMenuOpen(false)} to={"/"}>
               Home
             </NavLink>
+            {isAuthenticated ? (
+              <NavLink onClick={() => setMenuOpen(false)} to="/my-posts">
+                My Posts
+              </NavLink>
+            ) : null}
             <NavLink onClick={() => setMenuOpen(false)} to={"/posts"}>
               Posts
             </NavLink>
@@ -61,12 +68,16 @@ function Header() {
             )}
           </div>
         </div>
-        <div className="menu">
+        <div className={menuOpen ? `open-menu menu` : `menu`}>
           <button className="menu-toggle" onClick={toggleMenu}>
             <LazyLoadImage
               width={"50px"}
               height={"50px"}
-              src="https://www.svgrepo.com/show/315606/menu-left.svg"
+              src={
+                menuOpen
+                  ? `https://static.thenounproject.com/png/4984268-200.png`
+                  : `https://www.svgrepo.com/show/315606/menu-left.svg`
+              }
               effect="blur"
             />
           </button>

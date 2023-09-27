@@ -19,13 +19,9 @@ function AccountPage() {
     navigate("/login");
   };
 
-  const headers = {
-    Authorization: `Bearer ${Cookies.get(TOKEN)}`,
-  };
-
   const getInfo = async () => {
     try {
-      const res = await request("auth/me", { headers });
+      const res = await request("auth/me");
       setData(res.data);
       setChangedData(res.data);
     } catch (err) {
@@ -35,12 +31,8 @@ function AccountPage() {
 
   const submit = async (e) => {
     e.preventDefault();
-    const headers = {
-      Authorization: `Bearer ${Cookies.get(TOKEN)}`,
-      Cookie: `Cookie_1=value; TOKEN=${Cookies.get(TOKEN)}`,
-    };
     try {
-      await request.put("auth/details", changedData, { headers });
+      await request.put("auth/details", changedData);
       toast.success("Successfull changed");
     } catch (error) {
       toast.error("Invalid");

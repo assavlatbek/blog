@@ -38,7 +38,7 @@ function App() {
             {isAuthenticated ?
               <>
                 <Route path='account' element={<AccountPage />} />
-                <Route path='my-blogs' element={<MyBlogsPage />} />
+                <Route path='my-posts' element={<MyBlogsPage />} />
                 <Route path='login' element={<NotFoundPage />} />
               </>
 

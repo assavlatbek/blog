@@ -12,7 +12,7 @@ function HeroPostCard({ post }) {
     }));
   };
   return (
-    <Link to={`blog/${post._id}`}>
+    <Link className="non-link" to={`blog/${post._id}`}>
       <div className="popular-posts">
         <LazyLoadImage
           width={"100%"}
@@ -32,11 +32,14 @@ function HeroPostCard({ post }) {
           <p className="hero-detail my-2">
             By{" "}
             <span className="text-yellow">
-              {post.user.first_name} {post.user.last_name}
+              {post.user
+                ? post.user.first_name + " " + post.user.last_name
+                : "Savlatbek"}
+              {}
             </span>{" "}
             |{" "}
             {new Date(
-              post.category
+              post?.category
                 ? post.category.updatedAt
                 : "2009-07-11T00:00:00.000Z"
             ).toLocaleDateString(undefined, {
@@ -46,13 +49,13 @@ function HeroPostCard({ post }) {
             })}
           </p>
           <h1 className="post-title">
-            {post.category ? post.category.name : "Coding"},{" "}
-            {post.category
+            {post?.category ? post.category.name : "Coding"},{" "}
+            {post?.category
               ? post.category.description.slice(0, 36)
               : "Lorem ipsum dolor sit amet consectetur ad"}
           </h1>
           <p className="post-descr">
-            {post.category
+            {post?.category
               ? post.category.description
               : "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident."}
           </p>

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import request from "../server";
 import { toast } from "react-toastify";
 import PostCard from "../components/PostCard";
-import Cookies from "js-cookie";
-import { TOKEN } from "../constant";
 
 function MyBlogsPage() {
   const [posts, setPosts] = useState([]);
@@ -101,14 +99,17 @@ function MyBlogsPage() {
 
   async function handleOk(e) {
     try {
+      setLoading(true);
       e.preventDefault();
       console.log(values);
-      await request.post("post", values, {
-        headers: { Authorization: `Bearer ${Cookies.get(TOKEN)}` },
-      });
+      const res = await request.post("post", values);
+      setPosts(res.data.data);
+      setTotalPage(res.data.pagination.total);
       getPosts();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 

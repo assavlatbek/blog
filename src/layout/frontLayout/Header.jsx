@@ -26,7 +26,7 @@ function Header() {
         <div className="logo">
           {isAuthenticated ? (
             <Link to={"/my-posts"}>
-              <h1>My Blogs</h1>
+              <h1>My Posts</h1>
             </Link>
           ) : (
             <Link to={"/"}>

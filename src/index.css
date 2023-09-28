@@ -764,7 +764,12 @@ footer p {
   header * {
     transition: 0.3s all !important;
   }
-
+  .account-row {
+    display: block;
+  }
+  .account-row form {
+    width: 100%;
+  }
   .menu {
     transition: 0.5s all;
     display: block;

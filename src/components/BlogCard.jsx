@@ -63,8 +63,8 @@ function BlogCard({ el }) {
           </div>
         </div>
         <h1 className="hero-title" style={{ maxWidth: "none" }}>
-          {el.category !== null ? el.category.name : "Coder"},{" "}
-          {el.category !== null
+          {el.category ? el.category.name : "Coder"},{" "}
+          {el.category
             ? el.category.description.slice(0, 30)
             : "Lorem ipsum dolor sit amet con."}
           .

@@ -702,6 +702,17 @@ footer p {
   font-size: 18px;
 }
 
+/* Account */
+
+.account-row {
+  display: flex;
+  gap: 20px;
+}
+
+.account-row form {
+  width: 50%;
+}
+
 /* Media */
 
 @media (max-width: 1000px) {
@@ -777,7 +788,7 @@ footer p {
 
   .navigation.open {
     overflow: hidden !important;
-    transition: width 1s;
+    right: -100%;
     animation: openModal 0.6s forwards;
     opacity: 1;
     position: fixed;
@@ -785,7 +796,6 @@ footer p {
     width: 100% !important;
     height: 100vh;
     top: 0;
-    right: -100%;
     padding: 200px 0;
     background: #181818;
     display: flex !important;
@@ -793,7 +803,7 @@ footer p {
     align-items: center;
   }
   .hide {
-    transition: width 1s;
+    right: -100%;
     animation: hideModal 0.6s forwards;
     opacity: 1;
     position: fixed;
@@ -802,7 +812,6 @@ footer p {
     width: 100% !important;
     height: 100vh;
     top: 0;
-    right: 0;
     padding: 0;
     padding: 200px 0;
     background: #181818;
@@ -831,6 +840,9 @@ footer p {
   }
   .pagination-buttons {
     gap: 5px;
+  }
+  .btn-smaller {
+    font-size: 12px !important;
   }
 }
 

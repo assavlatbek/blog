@@ -16,7 +16,7 @@ function MyBlogsPage() {
   async function getPosts(page) {
     try {
       setLoading(true);
-      const res = await request.get(`post/user?page=${page}&limit=10`);
+      const res = await request.get(`post/user?page=${page}&limit=5`);
       setPosts(res.data.data);
       setTotalPage(res.data.pagination.total);
     } catch (error) {
@@ -34,7 +34,7 @@ function MyBlogsPage() {
     setIsModalOpen(true);
   };
 
-  const maxPage = Math.ceil(totalPost / 10);
+  const maxPage = Math.ceil(totalPost / 5);
 
   const nextPageFunc = () => {
     if (currentPage < maxPage) {
@@ -171,7 +171,7 @@ function MyBlogsPage() {
           className="post-search"
         />
         <div className="my-posts-header">
-          <h1 className="section-title">My Posts</h1>
+          <h1 className="section-title">My Posts ({totalPost})</h1>
           <button onClick={showModal} className="btn-yellow">
             Add Post
           </button>
@@ -223,7 +223,7 @@ function MyBlogsPage() {
               }
               onClick={nextPageFunc}
             >
-              {"> Next"}
+              {"Next >"}
             </button>
           </div>
         ) : null}

@@ -93,7 +93,7 @@ function MyBlogsPage() {
     const del = window.confirm("Do you won't to delete this Item");
     if (del) {
       await request.delete("post/" + id);
-      getPosts();
+      getPosts(currentPage);
     }
   };
 
@@ -105,7 +105,7 @@ function MyBlogsPage() {
       const res = await request.post("post", values);
       setPosts(res.data.data);
       setTotalPage(res.data.pagination.total);
-      getPosts();
+      getPosts(currentPage);
     } catch (error) {
       console.log(error);
     } finally {
@@ -115,7 +115,6 @@ function MyBlogsPage() {
 
   useEffect(() => {
     getPosts(currentPage);
-    console.log(values);
   }, [currentPage]);
 
   return (

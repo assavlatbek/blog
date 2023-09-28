@@ -64,13 +64,10 @@ function BlogCard({ el }) {
         </div>
         <h1 className="hero-title" style={{ maxWidth: "none" }}>
           {el.category ? el.category.name : "Coder"},{" "}
-          {el.category
-            ? el.category.description.slice(0, 30)
-            : "Lorem ipsum dolor sit amet con."}
-          .
+          {el ? el.title.slice(0, 30) : "Lorem ipsum dolor sit amet con."}
         </h1>
         <h3 className="post-title">
-          {el.category !== null ? el.category.name : "Coder"} (#
+          {el.category ? el.category.name : "Coder"} (#
           {el.tags[0]})
         </h3>
         <br />

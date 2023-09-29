@@ -74,11 +74,29 @@ function PostsPage() {
     }
     return pageNumbers;
   }
+  async function handleSearch(e) {
+    try {
+      setLoading(true);
+      const res = await request.get(`post?search=${e.target.value}`);
+      setPosts(res.data.data);
+      setTotalPage(res.data.pagination.total);
+    } catch (error) {
+      toast.error("Not Found");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <section>
       <div className="container">
         <br />
+        <input
+          type="search"
+          onChange={handleSearch}
+          placeholder="Search"
+          className="post-search"
+        />
         <br />
         <div
           style={{
